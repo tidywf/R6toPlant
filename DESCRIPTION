@@ -1,0 +1,12 @@
+Package: R6toPlant
+Title: Create PlantUML diagram from list of R6 classes
+Version: 0.0.0.9000
+Authors@R: 
+    person("Barry", "Rowlingson", , "b.rowlingson@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8586-6625"))
+Description: Output a PlantUML diagram from a list of R6 classes showing methods, fields etc.
+License: MIT + file LICENSE
+Imports: brew
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
