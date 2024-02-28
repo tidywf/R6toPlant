@@ -13,17 +13,22 @@ class <%= r6class$classname%> {
 <% } -%>
 <% if(!is.null(r6class$private_methods)){ -%>
 <% for(pm in names(r6class$private_methods)){ -%>
--<%=pm%>()
+-<%=pm%>(<%=flist(r6class$private_methods[[pm]])%>)
 <% } -%>
 <% } -%>
 <% if(!is.null(r6class$public_methods)){ -%>
 <% for(pm in names(r6class$public_methods)){ -%>
-+<%=pm%>()
++<%=pm%>(<%=flist(r6class$public_methods[[pm]])%>)
 <% } -%>
 <% } -%>
 }
 "
 }
+
+flist <- function(fn){
+    paste(names(formals(fn)), collapse=",")
+}
+
 
 ##' Create UML for a class
 ##'
