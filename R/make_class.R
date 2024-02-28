@@ -26,7 +26,7 @@ class <%= r6class$classname%> {
 }
 
 flist <- function(fn){
-    paste(names(formals(fn)), collapse=",")
+    paste(names(formals(fn)), collapse=",\\n  ")
 }
 
 
