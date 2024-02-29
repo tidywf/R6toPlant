@@ -11,7 +11,7 @@ get_R6_classes <- function(namespace){
     return(r6classes)
 }
 
-make_package_diagram <- function(namespace, output=stdout()){
+make_package_diagram <- function(namespace, output=stdout(), method_args=TRUE){
     clss = get_R6_classes(namespace)
-    make_plant(clss, output)
+    make_plant(clss, output, method_args=method_args)
 }

@@ -4,10 +4,12 @@
 \alias{make_class}
 \title{make plant UML for a class}
 \usage{
-make_class(r6class)
+make_class(r6class, method_args = TRUE)
 }
 \arguments{
 \item{r6class}{an R6 class generator}
+
+\item{method_args}{show method args}
 }
 \value{
 text of the UML

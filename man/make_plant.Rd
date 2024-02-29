@@ -4,12 +4,14 @@
 \alias{make_plant}
 \title{Create UML diagram from R6 object generators}
 \usage{
-make_plant(classes, output = stdout())
+make_plant(classes, output = stdout(), method_args = TRUE)
 }
 \arguments{
 \item{classes}{list of R6 class generators}
 
 \item{output}{filename or connection for output}
+
+\item{method_args}{should method args be shown?}
 }
 \value{
 none

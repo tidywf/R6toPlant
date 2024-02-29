@@ -4,10 +4,12 @@
 \alias{make_classes}
 \title{Plant UML for a list of classes}
 \usage{
-make_classes(classlist)
+make_classes(classlist, method_args = TRUE)
 }
 \arguments{
 \item{classlist}{a list of R6 class generators}
+
+\item{method_args}{should args of methods be shown}
 }
 \value{
 UML text
