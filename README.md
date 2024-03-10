@@ -17,3 +17,12 @@ of mine:
 cat out.uml | java -jar /opt/plantUML/plantuml.jar -charset UTF-8 -tsvg -pipe > out.svg
 ```
 
+On systems with a `plantuml` command (_e.g._, Ubuntu has an eponymous package) one can also do
+
+```
+plantuml -tpng out.uml
+```
+
+to create a file `out.png`.
+See `plantuml -h` (or `java -jar /opt/plantUML/plantuml.jar -h`) for more options.
+
