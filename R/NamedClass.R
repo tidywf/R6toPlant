@@ -39,15 +39,16 @@ make_named_plant = function(Name, Generator,
     ## sub title if mismatch name
     if(!identical(Generator$classname,Name)){
         if(is.null(Generator$classname)){
-            c$append("class ",Name, "{\n")
-            subName = "<NULL>"
+            subName = "NULL"
         }else{
             subName = Generator$classname
-            c$append("class ",Name," <<",subName,">> {\n")
             ## c$append("\n..",subName,"..\n")
         }
-
+        c$append("class ",Name," <<",subName,">> {\n")
+    }else{
+        c$append("class ",Name," {\n")
     }
+    
     
     ## public fields
     if(public_fields){
