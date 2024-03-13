@@ -22,48 +22,70 @@ NamedClass = R6Class(
     
 )
 
-make_named_plant = function(Name, Generator){
-    out = ""
-    rm(out)
-    tout = textConnection("out", "w")
+et = function(Name, Generator){
+
+}
+
+make_named_plant = function(Name, Generator,
+                            private_fields=TRUE,
+                            public_fields=TRUE,
+                            private_methods=TRUE,
+                            public_methods=TRUE,
+                            active=TRUE
+                            ){
+    c = Catter$new()
     ## main title
-    cap("class ",Name, "{", file=tout)
 
     ## sub title if mismatch name
     if(!identical(Generator$classname,Name)){
         if(is.null(Generator$classname)){
+            c$append("class ",Name, "{\n")
             subName = "<NULL>"
         }else{
             subName = Generator$classname
+            c$append("class ",Name," <<",subName,">> {\n")
+            ## c$append("\n..",subName,"..\n")
         }
-        cap("...",subName,"...\n", file=tout)                    
-    }
 
-    ## private fields
-    for(pm in names(Generator$private_fields)){
-        cap("-",pm,"\n", file=tout)
     }
-
+    
     ## public fields
-    for(pm in names(Generator$public_fields)){
-        cap("+",pm,"\n", file=tout)
-    }
-
-    ## private methods
-    for(pm in names(Generator$private_methods)){
-        cap("-",pm,"(",flist(Generator$private_methods[[pm]]),")\n", file=tout)
-    }
-
-    ## public methods
-    for(pm in names(Generator$public_methods)){
-        cap("+",pm,"(",flist(Generator$private_methods[[pm]]),")\n", file=tout)
+    if(public_fields){
+        for(pm in names(Generator$public_fields)){
+            c$append("+",pm,"\n")
+        }
     }
 
     ## active bindings...
+    if(active){
+        for(pm in names(Generator$active)){
+            c$append("~",pm,"\n")
+        }
+    }
     
+    ## public methods
+    if(public_methods){
+        for(pm in names(Generator$public_methods)){
+            c$append("+",pm,"(",flist(Generator$public_methods[[pm]]),")\n")
+        }
+    }
     
-    cap("\n}\n\n", file=tout)
-    close(tout)
-    out = paste(out, collapse="\n")
-    return(out)
+    ## private fields
+    if(private_fields){
+        for(pm in names(Generator$private_fields)){
+            c$append("-",pm,"\n")
+        }
+    }
+    
+    ## private methods
+    if(private_methods){
+        for(pm in names(Generator$private_methods)){
+            c$append("-",pm,"(",flist(Generator$private_methods[[pm]]),")\n")
+        }
+    }
+
+
+    
+    c$append("\n}\n\n")
+    return(c$text)
 }
