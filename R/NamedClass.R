@@ -1,4 +1,4 @@
-NamedClass = R6Class(
+NamedClass = R6::R6Class(
     "NamedClass",
     public = list(
         initialize = function(GeneratorName, Generator){
