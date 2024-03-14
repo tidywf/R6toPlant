@@ -90,3 +90,12 @@ make_named_plant = function(Name, Generator,
     c$append("\n}\n\n")
     return(c$text)
 }
+
+package_classes = function(packagename){
+    all_c = get_R6_classes(packagename)
+    au = lapply(names(all_c), function(n){NamedClass$new(n, all_c[[n]])})
+    aut = lapply(au, function(nc){nc$make_plant()})
+    do.call(paste0, aut)
+}
+
+                 
