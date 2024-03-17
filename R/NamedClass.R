@@ -22,9 +22,6 @@ NamedClass = R6::R6Class(
     
 )
 
-et = function(Name, Generator){
-
-}
 
 make_named_plant = function(Name, Generator,
                             private_fields=TRUE,
@@ -44,9 +41,9 @@ make_named_plant = function(Name, Generator,
             subName = Generator$classname
             ## c$append("\n..",subName,"..\n")
         }
-        c$append("class ",Name," <<",subName,">> {\n")
+        c$append("class ",Name," <<(6, #A0D0A0) ",subName,">> {\n")
     }else{
-        c$append("class ",Name," {\n")
+        c$append("class ",Name," <<(6, #A0D0A0)>> {\n")
     }
     
     
@@ -92,10 +89,67 @@ make_named_plant = function(Name, Generator,
 }
 
 package_classes = function(packagename){
-    all_c = get_R6_classes(packagename)
-    au = lapply(names(all_c), function(n){NamedClass$new(n, all_c[[n]])})
+    au = get_named_classlist(packagename)
     aut = lapply(au, function(nc){nc$make_plant()})
     do.call(paste0, aut)
 }
 
+get_named_classlist = function(packagename){
+    all_c = get_R6_classes(packagename)
+    au = lapply(names(all_c), function(n){NamedClass$new(n, all_c[[n]])})
+    au
+}
+
+make_class_plant <- function(namedr6classlist){
+    aut = lapply(namedr6classlist, function(nc){nc$make_plant()})
+    do.call(paste0, aut)
+}
+
+make_inherit_plant <- function(namedr6classlist){
+    inhlist = lapply(namedr6classlist, function(cls){
+        g = cls$Generator
+        if(!is.null(g$inherit)){
+            inh = g$inherit
+            if(inherits(inh, "name")){
+                iname = as.character(inh)
+            }else{
+                stopifnot(inherits(inh, "call"))
+                iname = paste0(as.character(inh)[c(2,1,3)],collapse="")
+            }
+            
+            paste0(cls$GeneratorName, " <|-- ",iname, "\n")
+            
+        }
+    })
+    do.call(paste0, inhlist)
+}
+
                  
+make_package_plant <- function(packagename){
+    classes = get_named_classlist(packagename)
+    
+    inherits = make_inherit_plant(classes)
+    classtxt = make_class_plant(classes)
+    txt = paste0("@startuml\n", classtxt,"\n", inherits,"\n@enduml")
+    return(txt)
+}
+
+make_package_diagram <- function(packagename, umlout, type="svg", open=FALSE, ...){
+    plant = make_package_plant(packagename)
+    if(missing(umlout)){
+        out = tempfile(fileext=".uml")
+    }else{
+        out = umlout
+    }
+        
+    cat(plant, file=out)
+    cmd = paste0("plantuml -t",type," ",out)
+    system(cmd)
+    outimg = sub(".uml$",paste0(".",type), out)
+    if(open){
+        browseURL(outimg)
+    }
+    
+    return(c(uml=out, output=outimg))
+}
+
