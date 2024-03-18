@@ -46,19 +46,7 @@ NamedClass = R6::R6Class(
     
 )
 
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title 
-##' @param Name 
-##' @param Generator 
-##' @param private_fields 
-##' @param public_fields 
-##' @param private_methods 
-##' @param public_methods 
-##' @param active 
-##' @return 
-##' @author Barry Rowlingson
+
 make_named_plant = function(Name, Generator,
                             private_fields=TRUE,
                             public_fields=TRUE,
