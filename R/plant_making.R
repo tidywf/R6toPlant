@@ -1,4 +1,7 @@
 
+### Return the UML for a name and a generator class
+### Internal, called via the make_plant method of NamedClass
+###
 make_named_plant <- function(Name, Generator,
                             private_fields=TRUE,
                             public_fields=TRUE,
@@ -76,11 +79,13 @@ get_named_classlist <- function(packagename){
     au
 }
 
+### Return the PlantUML for a list of named class objects
 make_class_plant <- function(namedr6classlist){
     aut = lapply(namedr6classlist, function(nc){nc$make_plant()})
     do.call(paste0, aut)
 }
 
+### Return the PlantUML for inheritances between list of named class objects
 make_inherit_plant <- function(namedr6classlist){
     inhlist = lapply(namedr6classlist, function(cls){
         g = cls$Generator
@@ -105,16 +110,17 @@ make_inherit_plant <- function(namedr6classlist){
 ##' Given the name of a package, return the UML for R6 Classes in it.
 ##' @title Make PlantUML for Package
 ##' @param packagename Name of an installed package
+##' @param header Extra PlantUML for the header
 ##' @return Text of the UML for the classes.
 ##' @author Barry Rowlingson
 ##' @export
-make_package_plant <- function(packagename){
+make_package_plant <- function(packagename, header=""){
 
     classes = get_named_classlist(packagename)
     
     inherits = make_inherit_plant(classes)
     classtxt = make_class_plant(classes)
-    txt = paste0("@startuml\n", classtxt,"\n", inherits,"\n@enduml")
+    txt = paste0("@startuml\n", header,"\n", classtxt,"\n", inherits,"\n@enduml\n")
     return(txt)
 }
 
@@ -127,13 +133,14 @@ make_package_plant <- function(packagename){
 ##' @param umlout Where to create PlantUML output file. If missing, use a
 ##'               temporary file
 ##' @param type Image file type, eg svg or png. Passed to "plantuml" command.
+##' @param header Extra PlantUML for the header
 ##' @param open If TRUE, use "browseURL" to open the image file
 ##' @param ... Other parameters
 ##' @return A named vector of UML and image file names
 ##' @author Barry Rowlingson
 ##' @export
-make_package_diagram <- function(packagename, umlout, type="svg", open=FALSE, ...){
-    plant = make_package_plant(packagename)
+make_package_diagram <- function(packagename, umlout, type="svg", header="", open=FALSE, ...){
+    plant = make_package_plant(packagename, header=header)
     if(missing(umlout)){
         out = tempfile(fileext=".uml")
     }else{
