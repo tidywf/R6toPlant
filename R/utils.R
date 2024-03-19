@@ -1,7 +1,6 @@
-cap = function(..., file){
-    cat(..., file=file, sep="", append=TRUE)
-}
-
+###
+### Class for appending text to an object
+###
 Catter = R6::R6Class("Catter",
                  public = list(
                      text = "",
@@ -14,7 +13,9 @@ Catter = R6::R6Class("Catter",
                  )
                  )
 
-
+###
+### format the arguments of a function.
+###
 flist <- function(fn, method=TRUE){
     if(method){
         s = paste(names(formals(fn)), collapse=",\\n  ")
