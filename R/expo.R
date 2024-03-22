@@ -39,7 +39,7 @@ allR6ClassGens <- function(ns){
 isR6ClassGen <- function(ns){
     f = function(name){
 #        is.R6Class(getFromNamespace(name, ns))
-        is.R6Class(get(name, asNamespace(ns)))
+        R6::is.R6Class(get(name, asNamespace(ns)))
     }
     f    
 }
