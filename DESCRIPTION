@@ -1,6 +1,6 @@
 Package: R6toPlant
 Title: Create PlantUML diagram from list of R6 classes
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: c(
     person("Barry", "Rowlingson", , "b.rowlingson@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-8586-6625")),
