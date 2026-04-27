@@ -1,5 +1,10 @@
 # R6 Classes to UML
 
+> [!IMPORTANT]
+> This repository has been copied from https://gitlab.com/b-rowlingson/R6toPlant
+> so that I can generate a tag and create a conda package that will be available at
+> https://anaconda.org/channels/tidywf.
+
 ## Example
 
 ```
