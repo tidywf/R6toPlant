@@ -1,0 +1,30 @@
+name: conda-docs
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  condarise:
+    name: 🐍 Condarise
+    needs: [umlise]
+    uses: tidywf/.github/.github/workflows/condarise.yaml@main
+    permissions:
+      contents: write
+    with:
+      pkg_name: r6toplant
+      pkg_version: '0.0.0.9000' # bump
+    secrets: inherit
+
+  tag:
+    name: 🔖 Tag
+    needs: [condarise]
+    uses: tidywf/.github/.github/workflows/tag.yaml@main
+    permissions:
+      contents: write
+    with:
+      pkg_version: '0.0.0.9000' # bump
+    secrets: inherit
+

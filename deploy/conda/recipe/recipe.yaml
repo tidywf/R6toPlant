@@ -1,0 +1,42 @@
+context:
+  name: r-r6toplant
+  version: 0.0.0.9000 # bump
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  path: ../../..
+
+build:
+  number: 0
+  noarch: generic
+
+requirements:
+  host:
+    - r-base
+    - r-r6
+    - r-brew
+  run:
+    - r-base
+    - r-r6
+    - r-brew
+
+tests:
+  - r:
+      libraries:
+        - R6toPlant
+
+about:
+  homepage: https://gitlab.com/b-rowlingson/R6toPlant
+  summary: Create PlantUML diagram from list of R6 classes
+  description: Output a PlantUML diagram from a list of R6 classes showing methods, fields etc.
+  license: MIT
+  license_file: LICENSE
+  repository: https://gitlab.com/b-rowlingson/R6toPlant
+  documentation: https://gitlab.com/b-rowlingson/R6toPlant
+
+extra:
+  recipe-maintainers:
+    - pdiakumis
