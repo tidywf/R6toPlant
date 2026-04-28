@@ -3,4 +3,4 @@ channels:
   - tidywf
   - conda-forge
 dependencies:
-  - r-r6toplant ==0.0.0.9002 # bump
+  - r-r6toplant ==0.0.0.9003 # bump
